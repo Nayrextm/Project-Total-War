@@ -18,14 +18,37 @@ public class UnitBrain : MonoBehaviour
 
     public void Possess(IShipInputService newInputProvider)
     {
+       
+        if (_currentInput != null)
+        {
+            _currentInput.OnGearShifted -= HandleGearShift;
+        }
+
         _currentInput = newInputProvider;
+
+        
+        if (_currentInput != null)
+        {
+            _currentInput.OnGearShifted += HandleGearShift;
+        }
+    }
+
+    private void HandleGearShift(int step)
+    {
+        _shipController.ShiftGear(step);
     }
 
     private void Update()
     {
         if (_currentInput == null) return;
-
-        _shipController.SetThrottle(_currentInput.GetThrottle());
         _shipController.Steer(_currentInput.GetSteering());
+    }
+
+    private void OnDestroy()
+    {
+        if (_currentInput != null)
+        {
+            _currentInput.OnGearShifted -= HandleGearShift;
+        }
     }
 }

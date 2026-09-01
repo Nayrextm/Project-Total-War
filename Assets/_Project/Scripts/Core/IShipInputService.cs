@@ -1,5 +1,7 @@
+using System;
+
 public interface IShipInputService
 {
-    float GetThrottle();
+    event Action<int> OnGearShifted; 
     float GetSteering();
 }

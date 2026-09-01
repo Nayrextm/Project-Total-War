@@ -7,16 +7,6 @@
             "id": "5e0a4d56-66a0-4c6e-93d1-8a652d07703a",
             "actions": [
                 {
-                    "name": "Throttle",
-                    "type": "Value",
-                    "id": "b84c7a5e-8cb3-48a2-b1b8-c55af9a899c7",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true,
-                    "priority": 0
-                },
-                {
                     "name": "Steer",
                     "type": "Value",
                     "id": "5c5f81fb-84e2-4997-941e-bd8fc94eb541",
@@ -25,42 +15,29 @@
                     "interactions": "",
                     "initialStateCheck": true,
                     "priority": 0
+                },
+                {
+                    "name": "Speed Up",
+                    "type": "Button",
+                    "id": "55c4d36e-99c2-42b3-aa70-c067aab88003",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Speed Down",
+                    "type": "Button",
+                    "id": "885fd348-304a-4aff-9372-521caf54de4b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
-                {
-                    "name": "1D Axis",
-                    "id": "b26543fe-00ae-425b-aee8-d3c846eb6135",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "79c048db-d6ea-4eeb-9b2c-e68cc86341f3",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "a059d254-ce53-41ff-9923-ccbe815aa277",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throttle",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
                 {
                     "name": "1D Axis",
                     "id": "7deb7e68-65bc-442f-924b-3bb0eb063d20",
@@ -93,6 +70,28 @@
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "54b0dcb1-bff3-4306-992b-7df80c682736",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Speed Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da637feb-812f-4022-bb37-a7c5a0a5d926",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Speed Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

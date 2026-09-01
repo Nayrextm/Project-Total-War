@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gameplay::ShipData
   _shipName: Hiryu
   _maxSpeed: 25
-  _turnRate: 15
   _acceleration: 2
+  _turnRate: 15
+  _rudderSpeed: 5
+  _maxHeelAngle: 3
+  _heelSpeed: 1.5
   _maxAircraftCapacity: 0

@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class PlayerInputService : IShipInputService
 {
+    public event Action<int> OnGearShifted;
+
     private PlayerInputActions _inputActions;
-    private float _throttleValue;
     private float _steeringValue;
 
     public PlayerInputService()
@@ -11,14 +13,13 @@ public class PlayerInputService : IShipInputService
         _inputActions = new PlayerInputActions();
         _inputActions.ShipControl.Enable();
 
-        _inputActions.ShipControl.Throttle.performed += ctx => _throttleValue = ctx.ReadValue<float>();
-        _inputActions.ShipControl.Throttle.canceled += ctx => _throttleValue = 0f;
+        // Підписуємося на натискання кнопок
+        _inputActions.ShipControl.SpeedUp.performed += ctx => OnGearShifted?.Invoke(1);
+        _inputActions.ShipControl.SpeedDown.performed += ctx => OnGearShifted?.Invoke(-1);
 
         _inputActions.ShipControl.Steer.performed += ctx => _steeringValue = ctx.ReadValue<float>();
         _inputActions.ShipControl.Steer.canceled += ctx => _steeringValue = 0f;
     }
-
-    public float GetThrottle() => _throttleValue;
 
     public float GetSteering() => _steeringValue;
 
