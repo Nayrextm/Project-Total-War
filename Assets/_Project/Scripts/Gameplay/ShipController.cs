@@ -1,38 +1,33 @@
 using System;
 using UnityEngine;
 
-
 public enum EngineGear
 {
-    FullAstern = -3, 
-    HalfAstern = -2, 
-    SlowAstern = -1, 
-    Stop = 0,        
-    SlowAhead = 1,   
-    HalfAhead = 2,   
-    FullAhead = 3    
+    FullAstern = -3,
+    HalfAstern = -2,
+    SlowAstern = -1,
+    Stop = 0,
+    SlowAhead = 1,
+    HalfAhead = 2,
+    FullAhead = 3
 }
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipController : MonoBehaviour
 {
-    
     public event Action<EngineGear> OnGearChanged;
     public float CurrentSpeed => _currentSpeed;
 
-
     [SerializeField] private ShipData _shipData;
-    [SerializeField] private Transform _visualModel; 
+    [SerializeField] private Transform _visualModel;
 
     private Rigidbody _rigidbody;
     public EngineGear CurrentGear { get; private set; } = EngineGear.Stop;
 
     private float _currentSpeed;
     private float _targetSpeed;
-
     private float _currentTurnRate;
     private float _targetTurnRate;
-
     private float _currentHeelAngle;
 
     private void Awake()
@@ -49,7 +44,7 @@ public class ShipController : MonoBehaviour
     {
         int newGearValue = (int)CurrentGear + step;
         newGearValue = Mathf.Clamp(newGearValue, (int)EngineGear.FullAstern, (int)EngineGear.FullAhead);
-        
+
         if (CurrentGear != (EngineGear)newGearValue)
         {
             CurrentGear = (EngineGear)newGearValue;
@@ -60,16 +55,14 @@ public class ShipController : MonoBehaviour
 
     private void UpdateTargetSpeed()
     {
-        float maxReverseSpeed = _shipData.MaxSpeed * 0.2f; 
+        float maxReverseSpeed = _shipData.MaxSpeed * 0.2f;
 
         switch (CurrentGear)
         {
             case EngineGear.FullAstern: _targetSpeed = -maxReverseSpeed; break;
             case EngineGear.HalfAstern: _targetSpeed = -(maxReverseSpeed * 0.66f); break;
             case EngineGear.SlowAstern: _targetSpeed = -(maxReverseSpeed * 0.33f); break;
-
             case EngineGear.Stop: _targetSpeed = 0f; break;
-
             case EngineGear.SlowAhead: _targetSpeed = _shipData.MaxSpeed * 0.33f; break;
             case EngineGear.HalfAhead: _targetSpeed = _shipData.MaxSpeed * 0.66f; break;
             case EngineGear.FullAhead: _targetSpeed = _shipData.MaxSpeed; break;
@@ -85,12 +78,19 @@ public class ShipController : MonoBehaviour
     {
         MoveShip();
         ApplySteering();
-        ApplyHeel(); 
+        ApplyHeel();
     }
 
     private void MoveShip()
     {
-        _currentSpeed = Mathf.MoveTowards(_currentSpeed, _targetSpeed, _shipData.Acceleration * Time.fixedDeltaTime);
+        float activeAcceleration = _shipData.Acceleration;
+
+        if (_targetSpeed < _currentSpeed || (_targetSpeed > 0 && _currentSpeed < 0))
+        {
+            activeAcceleration *= 0.33f;
+        }
+
+        _currentSpeed = Mathf.MoveTowards(_currentSpeed, _targetSpeed, activeAcceleration * Time.fixedDeltaTime);
         Vector3 movement = transform.forward * (_currentSpeed * Time.fixedDeltaTime);
         _rigidbody.MovePosition(_rigidbody.position + movement);
     }
