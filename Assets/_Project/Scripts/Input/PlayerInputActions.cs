@@ -103,23 +103,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""Speed Up"",
-                    ""type"": ""Button"",
-                    ""id"": ""55c4d36e-99c2-42b3-aa70-c067aab88003"",
-                    ""expectedControlType"": """",
+                    ""name"": ""Throttle"",
+                    ""type"": ""Value"",
+                    ""id"": ""f82e84ec-06e0-4544-9d7a-a57475f7752f"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false,
-                    ""priority"": 0
-                },
-                {
-                    ""name"": ""Speed Down"",
-                    ""type"": ""Button"",
-                    ""id"": ""885fd348-304a-4aff-9372-521caf54de4b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false,
+                    ""initialStateCheck"": true,
                     ""priority"": 0
                 }
             ],
@@ -158,26 +148,37 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""54b0dcb1-bff3-4306-992b-7df80c682736"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""b5bf7b95-c404-4a00-a3ee-13945c3a9ee1"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Speed Up"",
-                    ""isComposite"": false,
+                    ""action"": ""Throttle"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""da637feb-812f-4022-bb37-a7c5a0a5d926"",
+                    ""name"": ""negative"",
+                    ""id"": ""39d1752e-1b6c-4570-9b56-485cbccfe5d5"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Speed Down"",
+                    ""action"": ""Throttle"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""12bc4e74-6ec6-43a5-987b-28149d21860a"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throttle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -187,8 +188,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // ShipControl
         m_ShipControl = asset.FindActionMap("ShipControl", throwIfNotFound: true);
         m_ShipControl_Steer = m_ShipControl.FindAction("Steer", throwIfNotFound: true);
-        m_ShipControl_SpeedUp = m_ShipControl.FindAction("Speed Up", throwIfNotFound: true);
-        m_ShipControl_SpeedDown = m_ShipControl.FindAction("Speed Down", throwIfNotFound: true);
+        m_ShipControl_Throttle = m_ShipControl.FindAction("Throttle", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -270,8 +270,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_ShipControl;
     private List<IShipControlActions> m_ShipControlActionsCallbackInterfaces = new List<IShipControlActions>();
     private readonly InputAction m_ShipControl_Steer;
-    private readonly InputAction m_ShipControl_SpeedUp;
-    private readonly InputAction m_ShipControl_SpeedDown;
+    private readonly InputAction m_ShipControl_Throttle;
     /// <summary>
     /// Provides access to input actions defined in input action map "ShipControl".
     /// </summary>
@@ -288,13 +287,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Steer => m_Wrapper.m_ShipControl_Steer;
         /// <summary>
-        /// Provides access to the underlying input action "ShipControl/SpeedUp".
+        /// Provides access to the underlying input action "ShipControl/Throttle".
         /// </summary>
-        public InputAction @SpeedUp => m_Wrapper.m_ShipControl_SpeedUp;
-        /// <summary>
-        /// Provides access to the underlying input action "ShipControl/SpeedDown".
-        /// </summary>
-        public InputAction @SpeedDown => m_Wrapper.m_ShipControl_SpeedDown;
+        public InputAction @Throttle => m_Wrapper.m_ShipControl_Throttle;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -324,12 +319,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Steer.started += instance.OnSteer;
             @Steer.performed += instance.OnSteer;
             @Steer.canceled += instance.OnSteer;
-            @SpeedUp.started += instance.OnSpeedUp;
-            @SpeedUp.performed += instance.OnSpeedUp;
-            @SpeedUp.canceled += instance.OnSpeedUp;
-            @SpeedDown.started += instance.OnSpeedDown;
-            @SpeedDown.performed += instance.OnSpeedDown;
-            @SpeedDown.canceled += instance.OnSpeedDown;
+            @Throttle.started += instance.OnThrottle;
+            @Throttle.performed += instance.OnThrottle;
+            @Throttle.canceled += instance.OnThrottle;
         }
 
         /// <summary>
@@ -344,12 +336,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Steer.started -= instance.OnSteer;
             @Steer.performed -= instance.OnSteer;
             @Steer.canceled -= instance.OnSteer;
-            @SpeedUp.started -= instance.OnSpeedUp;
-            @SpeedUp.performed -= instance.OnSpeedUp;
-            @SpeedUp.canceled -= instance.OnSpeedUp;
-            @SpeedDown.started -= instance.OnSpeedDown;
-            @SpeedDown.performed -= instance.OnSpeedDown;
-            @SpeedDown.canceled -= instance.OnSpeedDown;
+            @Throttle.started -= instance.OnThrottle;
+            @Throttle.performed -= instance.OnThrottle;
+            @Throttle.canceled -= instance.OnThrottle;
         }
 
         /// <summary>
@@ -398,18 +387,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSteer(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Speed Up" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Throttle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSpeedUp(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Speed Down" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSpeedDown(InputAction.CallbackContext context);
+        void OnThrottle(InputAction.CallbackContext context);
     }
 }

@@ -17,23 +17,13 @@
                     "priority": 0
                 },
                 {
-                    "name": "Speed Up",
-                    "type": "Button",
-                    "id": "55c4d36e-99c2-42b3-aa70-c067aab88003",
-                    "expectedControlType": "",
+                    "name": "Throttle",
+                    "type": "Value",
+                    "id": "f82e84ec-06e0-4544-9d7a-a57475f7752f",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
-                },
-                {
-                    "name": "Speed Down",
-                    "type": "Button",
-                    "id": "885fd348-304a-4aff-9372-521caf54de4b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
+                    "initialStateCheck": true,
                     "priority": 0
                 }
             ],
@@ -72,26 +62,37 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "54b0dcb1-bff3-4306-992b-7df80c682736",
-                    "path": "<Keyboard>/w",
+                    "name": "1D Axis",
+                    "id": "b5bf7b95-c404-4a00-a3ee-13945c3a9ee1",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Speed Up",
-                    "isComposite": false,
+                    "action": "Throttle",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "da637feb-812f-4022-bb37-a7c5a0a5d926",
+                    "name": "negative",
+                    "id": "39d1752e-1b6c-4570-9b56-485cbccfe5d5",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Speed Down",
+                    "action": "Throttle",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "12bc4e74-6ec6-43a5-987b-28149d21860a",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

@@ -2,6 +2,6 @@ using System;
 
 public interface IShipInputService
 {
-    event Action<int> OnGearShifted; 
+    event Action<int> OnThrottleStateChanged;
     float GetSteering();
 }

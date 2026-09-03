@@ -22,6 +22,11 @@ public class ShipController : MonoBehaviour
     [SerializeField] private Transform _visualModel;
 
     private Rigidbody _rigidbody;
+
+    [Header("Gear Settings")]
+    [SerializeField] private float _gearShiftDelay = 0.3f;
+    private float _lastShiftTime;
+    private int _currentThrottleInput = 0; 
     public EngineGear CurrentGear { get; private set; } = EngineGear.Stop;
 
     private float _currentSpeed;
@@ -40,6 +45,31 @@ public class ShipController : MonoBehaviour
         _shipData = data;
     }
 
+    public void SetThrottleInput(int direction)
+    {
+        _currentThrottleInput = direction;
+
+        if (_currentThrottleInput == 0)
+        {
+            _lastShiftTime = 0f;
+        }
+    }
+    private void Update()
+    {
+        ProcessContinuousGearShifting();
+    }
+
+    private void ProcessContinuousGearShifting()
+    {
+        if (_currentThrottleInput != 0)
+        {
+            if (Time.time >= _lastShiftTime + _gearShiftDelay)
+            {
+                ShiftGear(_currentThrottleInput);
+                _lastShiftTime = Time.time;
+            }
+        }
+    }
     public void ShiftGear(int step)
     {
         int newGearValue = (int)CurrentGear + step;

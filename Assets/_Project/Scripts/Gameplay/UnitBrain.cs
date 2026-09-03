@@ -21,7 +21,7 @@ public class UnitBrain : MonoBehaviour
        
         if (_currentInput != null)
         {
-            _currentInput.OnGearShifted -= HandleGearShift;
+            _currentInput.OnThrottleStateChanged -= HandleGearShift;
         }
 
         _currentInput = newInputProvider;
@@ -29,13 +29,13 @@ public class UnitBrain : MonoBehaviour
         
         if (_currentInput != null)
         {
-            _currentInput.OnGearShifted += HandleGearShift;
+            _currentInput.OnThrottleStateChanged += HandleGearShift;
         }
     }
 
     private void HandleGearShift(int step)
     {
-        _shipController.ShiftGear(step);
+        _shipController.SetThrottleInput(step);
     }
 
     private void Update()
@@ -48,7 +48,7 @@ public class UnitBrain : MonoBehaviour
     {
         if (_currentInput != null)
         {
-            _currentInput.OnGearShifted -= HandleGearShift;
+            _currentInput.OnThrottleStateChanged -= HandleGearShift;
         }
     }
 }
