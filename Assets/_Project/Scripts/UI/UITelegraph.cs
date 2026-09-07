@@ -17,10 +17,8 @@ public class UITelegraph : MonoBehaviour
     [SerializeField] private float _angleFullAhead = 30f;
     [SerializeField] private float _angleHalfAhead = 50f;
     [SerializeField] private float _angleSlowAhead = 70f;
-
     [Tooltip("Position ~9:00 (Center)")]
     [SerializeField] private float _angleStop = 90f;
-
     [SerializeField] private float _angleSlowAstern = 110f;
     [SerializeField] private float _angleHalfAstern = 130f;
     [Tooltip("Position ~7:00")]
@@ -29,25 +27,38 @@ public class UITelegraph : MonoBehaviour
     [Header("UI Update Settings")]
     [SerializeField] private float _uiUpdateInterval = 0.1f;
 
-    [SerializeField] private ShipController _activeShip;
+    private ShipController _activeShip;
+    private IPlayerFleetState _fleetState;
 
     private float _updateTimer = 0f;
     private float _lastDisplayedKnots = -1f;
 
-    private void OnEnable()
+    private void Start()
     {
-        if (_activeShip != null)
+        _fleetState = ServiceLocator.Get<IPlayerFleetState>();
+
+        _fleetState.OnActiveShipChanged += HandleActiveShipChanged;
+
+        if (_fleetState.ActiveShip != null)
         {
-            _activeShip.OnGearChanged += UpdateTelegraphHandle;
-            UpdateTelegraphHandle(_activeShip.CurrentGear);
+            HandleActiveShipChanged(_fleetState.ActiveShip);
         }
     }
 
-    private void OnDisable()
+    private void HandleActiveShipChanged(ShipController newShip)
     {
         if (_activeShip != null)
         {
             _activeShip.OnGearChanged -= UpdateTelegraphHandle;
+        }
+
+        _activeShip = newShip;
+
+        if (_activeShip != null)
+        {
+            _activeShip.OnGearChanged += UpdateTelegraphHandle;
+            UpdateTelegraphHandle(_activeShip.CurrentGear);
+            _lastDisplayedKnots = -1f;
         }
     }
 
@@ -69,12 +80,22 @@ public class UITelegraph : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (_fleetState != null)
+        {
+            _fleetState.OnActiveShipChanged -= HandleActiveShipChanged;
+        }
+        if (_activeShip != null)
+        {
+            _activeShip.OnGearChanged -= UpdateTelegraphHandle;
+        }
+    }
+
     private void UpdateTelegraphHandle(EngineGear gear)
     {
         float targetAngle = GetAngleForGear(gear);
-
-        _telegraphHandle.DORotate(new Vector3(0, 0, targetAngle), _rotationDuration)
-            .SetEase(Ease.OutBack);
+        _telegraphHandle.DORotate(new Vector3(0, 0, targetAngle), _rotationDuration).SetEase(Ease.OutBack);
     }
 
     private float GetAngleForGear(EngineGear gear)

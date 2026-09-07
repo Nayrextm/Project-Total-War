@@ -25,6 +25,26 @@
                     "interactions": "",
                     "initialStateCheck": true,
                     "priority": 0
+                },
+                {
+                    "name": "NextUnit",
+                    "type": "Button",
+                    "id": "91e321da-dcbd-4174-908d-0b6b0a620528",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "PreviousUnit",
+                    "type": "Button",
+                    "id": "1b1f9e7f-b9e6-4ec4-98b7-070904fe80b6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -93,6 +113,28 @@
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "df7900be-f33c-43b6-8f78-bb951abc9ac9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextUnit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c11cbf69-44e6-4a18-b1e9-a2d8476cf83a",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousUnit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

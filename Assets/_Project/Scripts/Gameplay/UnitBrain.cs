@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(ShipController))]
 public class UnitBrain : MonoBehaviour
 {
+    [SerializeField] private Transform _cameraPivot;
+    public Transform CameraPivot => _cameraPivot;
+
     private ShipController _shipController;
     private IShipInputService _currentInput;
 
@@ -11,14 +14,9 @@ public class UnitBrain : MonoBehaviour
         _shipController = GetComponent<ShipController>();
     }
 
-    private void Start()
-    {
-        Possess(ServiceLocator.Get<IShipInputService>());
-    }
 
     public void Possess(IShipInputService newInputProvider)
     {
-       
         if (_currentInput != null)
         {
             _currentInput.OnThrottleStateChanged -= HandleGearShift;
@@ -26,10 +24,13 @@ public class UnitBrain : MonoBehaviour
 
         _currentInput = newInputProvider;
 
-        
         if (_currentInput != null)
         {
             _currentInput.OnThrottleStateChanged += HandleGearShift;
+        }
+        else
+        {
+            _shipController.SetThrottleInput(0);
         }
     }
 

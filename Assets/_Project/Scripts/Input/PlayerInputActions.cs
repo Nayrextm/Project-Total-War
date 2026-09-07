@@ -111,6 +111,26 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": true,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""NextUnit"",
+                    ""type"": ""Button"",
+                    ""id"": ""91e321da-dcbd-4174-908d-0b6b0a620528"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""PreviousUnit"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b1f9e7f-b9e6-4ec4-98b7-070904fe80b6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -179,6 +199,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Throttle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df7900be-f33c-43b6-8f78-bb951abc9ac9"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextUnit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c11cbf69-44e6-4a18-b1e9-a2d8476cf83a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreviousUnit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -189,6 +231,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_ShipControl = asset.FindActionMap("ShipControl", throwIfNotFound: true);
         m_ShipControl_Steer = m_ShipControl.FindAction("Steer", throwIfNotFound: true);
         m_ShipControl_Throttle = m_ShipControl.FindAction("Throttle", throwIfNotFound: true);
+        m_ShipControl_NextUnit = m_ShipControl.FindAction("NextUnit", throwIfNotFound: true);
+        m_ShipControl_PreviousUnit = m_ShipControl.FindAction("PreviousUnit", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -271,6 +315,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IShipControlActions> m_ShipControlActionsCallbackInterfaces = new List<IShipControlActions>();
     private readonly InputAction m_ShipControl_Steer;
     private readonly InputAction m_ShipControl_Throttle;
+    private readonly InputAction m_ShipControl_NextUnit;
+    private readonly InputAction m_ShipControl_PreviousUnit;
     /// <summary>
     /// Provides access to input actions defined in input action map "ShipControl".
     /// </summary>
@@ -290,6 +336,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ShipControl/Throttle".
         /// </summary>
         public InputAction @Throttle => m_Wrapper.m_ShipControl_Throttle;
+        /// <summary>
+        /// Provides access to the underlying input action "ShipControl/NextUnit".
+        /// </summary>
+        public InputAction @NextUnit => m_Wrapper.m_ShipControl_NextUnit;
+        /// <summary>
+        /// Provides access to the underlying input action "ShipControl/PreviousUnit".
+        /// </summary>
+        public InputAction @PreviousUnit => m_Wrapper.m_ShipControl_PreviousUnit;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -322,6 +376,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Throttle.started += instance.OnThrottle;
             @Throttle.performed += instance.OnThrottle;
             @Throttle.canceled += instance.OnThrottle;
+            @NextUnit.started += instance.OnNextUnit;
+            @NextUnit.performed += instance.OnNextUnit;
+            @NextUnit.canceled += instance.OnNextUnit;
+            @PreviousUnit.started += instance.OnPreviousUnit;
+            @PreviousUnit.performed += instance.OnPreviousUnit;
+            @PreviousUnit.canceled += instance.OnPreviousUnit;
         }
 
         /// <summary>
@@ -339,6 +399,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Throttle.started -= instance.OnThrottle;
             @Throttle.performed -= instance.OnThrottle;
             @Throttle.canceled -= instance.OnThrottle;
+            @NextUnit.started -= instance.OnNextUnit;
+            @NextUnit.performed -= instance.OnNextUnit;
+            @NextUnit.canceled -= instance.OnNextUnit;
+            @PreviousUnit.started -= instance.OnPreviousUnit;
+            @PreviousUnit.performed -= instance.OnPreviousUnit;
+            @PreviousUnit.canceled -= instance.OnPreviousUnit;
         }
 
         /// <summary>
@@ -393,5 +459,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnThrottle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "NextUnit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNextUnit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PreviousUnit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPreviousUnit(InputAction.CallbackContext context);
     }
 }

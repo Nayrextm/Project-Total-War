@@ -13,12 +13,16 @@ public class Bootstrapper : MonoBehaviour
     private void InitializeServices()
     {
         _playerInputService = new PlayerInputService();
+
         ServiceLocator.Register<IShipInputService>(_playerInputService);
+        ServiceLocator.Register<IFleetInputService>(_playerInputService);
     }
 
     private void OnDestroy()
     {
         _playerInputService?.Disable();
+
         ServiceLocator.Unregister<IShipInputService>();
+        ServiceLocator.Unregister<IFleetInputService>();
     }
 }
