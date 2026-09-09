@@ -49,16 +49,21 @@ public class UITelegraph : MonoBehaviour
     {
         if (_activeShip != null)
         {
-            _activeShip.OnGearChanged -= UpdateTelegraphHandle;
+            // Змінили назву методу для відписки
+            _activeShip.OnGearChanged -= AnimateTelegraphHandle; 
         }
 
         _activeShip = newShip;
 
         if (_activeShip != null)
         {
-            _activeShip.OnGearChanged += UpdateTelegraphHandle;
-            UpdateTelegraphHandle(_activeShip.CurrentGear);
-            _lastDisplayedKnots = -1f;
+            // Підписуємося на анімацію при звичайній грі
+            _activeShip.OnGearChanged += AnimateTelegraphHandle; 
+            
+            // Викликаємо МИТТЄВИЙ стрибок для нового корабля
+            SnapTelegraphHandle(_activeShip.CurrentGear); 
+            
+            _lastDisplayedKnots = -1f; 
         }
     }
 
@@ -88,14 +93,26 @@ public class UITelegraph : MonoBehaviour
         }
         if (_activeShip != null)
         {
-            _activeShip.OnGearChanged -= UpdateTelegraphHandle;
+            _activeShip.OnGearChanged -= AnimateTelegraphHandle;
         }
     }
 
-    private void UpdateTelegraphHandle(EngineGear gear)
+    private void AnimateTelegraphHandle(EngineGear gear)
     {
         float targetAngle = GetAngleForGear(gear);
+
+        _telegraphHandle.DOKill();
+
         _telegraphHandle.DORotate(new Vector3(0, 0, targetAngle), _rotationDuration).SetEase(Ease.OutBack);
+    }
+
+    private void SnapTelegraphHandle(EngineGear gear)
+    {
+        float targetAngle = GetAngleForGear(gear);
+
+        _telegraphHandle.DOKill();
+
+        _telegraphHandle.localRotation = Quaternion.Euler(0, 0, targetAngle);
     }
 
     private float GetAngleForGear(EngineGear gear)
