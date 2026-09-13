@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(-100)]
 public class Bootstrapper : MonoBehaviour
@@ -16,6 +17,7 @@ public class Bootstrapper : MonoBehaviour
 
         ServiceLocator.Register<IShipInputService>(_playerInputService);
         ServiceLocator.Register<IFleetInputService>(_playerInputService);
+        ServiceLocator.Register<IWeaponsInputService>(_playerInputService);
     }
 
     private void OnDestroy()
@@ -24,5 +26,6 @@ public class Bootstrapper : MonoBehaviour
 
         ServiceLocator.Unregister<IShipInputService>();
         ServiceLocator.Unregister<IFleetInputService>();
+        ServiceLocator.Unregister<IWeaponsInputService>();
     }
 }

@@ -12,6 +12,11 @@ public class UnitBrain : MonoBehaviour
     private void Awake()
     {
         _shipController = GetComponent<ShipController>();
+
+        if (TryGetComponent<Gameplay.Weapons.FireControlSystem>(out var fcs))
+        {
+            fcs.Initialize(_shipController.Data);
+        }
     }
 
 

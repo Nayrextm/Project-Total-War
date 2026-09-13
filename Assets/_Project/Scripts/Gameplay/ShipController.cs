@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Gameplay.Data;
 
 public enum EngineGear
 {
@@ -17,6 +18,7 @@ public class ShipController : MonoBehaviour
 {
     public event Action<EngineGear> OnGearChanged;
     public float CurrentSpeed => _currentSpeed;
+    public ShipData Data => _shipData;
 
     [SerializeField] private ShipData _shipData;
     [SerializeField] private Transform _visualModel;
@@ -129,7 +131,8 @@ public class ShipController : MonoBehaviour
     {
         _currentTurnRate = Mathf.MoveTowards(_currentTurnRate, _targetTurnRate, _shipData.RudderSpeed * Time.fixedDeltaTime);
 
-        float speedFactor = Mathf.Abs(_currentSpeed / _shipData.MaxSpeed);
+        float speedFactor = _shipData.MaxSpeed > 0f ? Mathf.Abs(_currentSpeed / _shipData.MaxSpeed) : 0f;
+
         float turnAmount = _currentTurnRate * speedFactor * Time.fixedDeltaTime;
 
         Quaternion turnRotation = Quaternion.Euler(0f, turnAmount, 0f);
@@ -140,8 +143,8 @@ public class ShipController : MonoBehaviour
     {
         if (_visualModel == null) return;
 
-        float turnRatio = _currentTurnRate / _shipData.TurnRate;
-        float speedRatio = _currentSpeed / _shipData.MaxSpeed;
+        float turnRatio = _shipData.TurnRate > 0f ? _currentTurnRate / _shipData.TurnRate : 0f;
+        float speedRatio = _shipData.MaxSpeed > 0f ? _currentSpeed / _shipData.MaxSpeed : 0f;
 
         float targetHeel = -turnRatio * speedRatio * _shipData.MaxHeelAngle;
 

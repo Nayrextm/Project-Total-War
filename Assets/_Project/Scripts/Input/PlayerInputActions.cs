@@ -131,6 +131,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""7dbb2040-0d10-45e2-bbd0-7060dc8f796a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -221,6 +231,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""PreviousUnit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""257e1256-a9bb-4989-869c-916733604f31"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -233,6 +254,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_ShipControl_Throttle = m_ShipControl.FindAction("Throttle", throwIfNotFound: true);
         m_ShipControl_NextUnit = m_ShipControl.FindAction("NextUnit", throwIfNotFound: true);
         m_ShipControl_PreviousUnit = m_ShipControl.FindAction("PreviousUnit", throwIfNotFound: true);
+        m_ShipControl_Fire = m_ShipControl.FindAction("Fire", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -317,6 +339,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ShipControl_Throttle;
     private readonly InputAction m_ShipControl_NextUnit;
     private readonly InputAction m_ShipControl_PreviousUnit;
+    private readonly InputAction m_ShipControl_Fire;
     /// <summary>
     /// Provides access to input actions defined in input action map "ShipControl".
     /// </summary>
@@ -344,6 +367,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ShipControl/PreviousUnit".
         /// </summary>
         public InputAction @PreviousUnit => m_Wrapper.m_ShipControl_PreviousUnit;
+        /// <summary>
+        /// Provides access to the underlying input action "ShipControl/Fire".
+        /// </summary>
+        public InputAction @Fire => m_Wrapper.m_ShipControl_Fire;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -382,6 +409,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PreviousUnit.started += instance.OnPreviousUnit;
             @PreviousUnit.performed += instance.OnPreviousUnit;
             @PreviousUnit.canceled += instance.OnPreviousUnit;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
         }
 
         /// <summary>
@@ -405,6 +435,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PreviousUnit.started -= instance.OnPreviousUnit;
             @PreviousUnit.performed -= instance.OnPreviousUnit;
             @PreviousUnit.canceled -= instance.OnPreviousUnit;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
         }
 
         /// <summary>
@@ -473,5 +506,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPreviousUnit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFire(InputAction.CallbackContext context);
     }
 }

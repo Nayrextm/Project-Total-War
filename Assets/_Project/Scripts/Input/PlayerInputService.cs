@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 
-public class PlayerInputService : IShipInputService, IFleetInputService
+public class PlayerInputService : IShipInputService, IFleetInputService, IWeaponsInputService
 {
     public event Action<int> OnThrottleStateChanged;
 
     public event Action OnNextUnit;
     public event Action OnPreviousUnit;
+
+    public event Action OnFireRequested;
 
     private PlayerInputActions _inputActions;
     private float _steeringValue;
@@ -24,6 +26,8 @@ public class PlayerInputService : IShipInputService, IFleetInputService
 
         _inputActions.ShipControl.NextUnit.performed += ctx => OnNextUnit?.Invoke();
         _inputActions.ShipControl.PreviousUnit.performed += ctx => OnPreviousUnit?.Invoke();
+
+        _inputActions.ShipControl.Fire.performed += ctx => OnFireRequested?.Invoke();
     }
 
     public float GetSteering() => _steeringValue;

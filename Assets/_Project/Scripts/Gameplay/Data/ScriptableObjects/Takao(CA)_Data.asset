@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0475852a2581a54ebea8e9eea36a7ee, type: 3}
+  m_Name: Takao(CA)_Data
+  m_EditorClassIdentifier: Gameplay::Gameplay.Data.ShipData
+  _shipName: Takao
+  _maxSpeed: 25
+  _acceleration: 2
+  _turnRate: 15
+  _rudderSpeed: 5
+  _maxHeelAngle: 3
+  _heelSpeed: 1.5
+  _maxAircraftCapacity: 0
+  _mainBattery:
+    AzimuthTurnRate: 30
+    ElevationTurnRate: 30
+    ReloadTime: 3
+    MaxRange: 9
