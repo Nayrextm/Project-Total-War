@@ -141,6 +141,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""FreeLook"",
+                    ""type"": ""Button"",
+                    ""id"": ""617705e9-8f31-4e4a-91a0-514307a2ab1f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -242,6 +252,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""485cb397-0a0d-4bf8-85c6-13393756288d"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FreeLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -255,6 +276,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_ShipControl_NextUnit = m_ShipControl.FindAction("NextUnit", throwIfNotFound: true);
         m_ShipControl_PreviousUnit = m_ShipControl.FindAction("PreviousUnit", throwIfNotFound: true);
         m_ShipControl_Fire = m_ShipControl.FindAction("Fire", throwIfNotFound: true);
+        m_ShipControl_FreeLook = m_ShipControl.FindAction("FreeLook", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -340,6 +362,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ShipControl_NextUnit;
     private readonly InputAction m_ShipControl_PreviousUnit;
     private readonly InputAction m_ShipControl_Fire;
+    private readonly InputAction m_ShipControl_FreeLook;
     /// <summary>
     /// Provides access to input actions defined in input action map "ShipControl".
     /// </summary>
@@ -371,6 +394,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ShipControl/Fire".
         /// </summary>
         public InputAction @Fire => m_Wrapper.m_ShipControl_Fire;
+        /// <summary>
+        /// Provides access to the underlying input action "ShipControl/FreeLook".
+        /// </summary>
+        public InputAction @FreeLook => m_Wrapper.m_ShipControl_FreeLook;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -412,6 +439,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @FreeLook.started += instance.OnFreeLook;
+            @FreeLook.performed += instance.OnFreeLook;
+            @FreeLook.canceled += instance.OnFreeLook;
         }
 
         /// <summary>
@@ -438,6 +468,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @FreeLook.started -= instance.OnFreeLook;
+            @FreeLook.performed -= instance.OnFreeLook;
+            @FreeLook.canceled -= instance.OnFreeLook;
         }
 
         /// <summary>
@@ -513,5 +546,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFire(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FreeLook" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFreeLook(InputAction.CallbackContext context);
     }
 }

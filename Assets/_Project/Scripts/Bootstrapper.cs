@@ -8,6 +8,10 @@ public class Bootstrapper : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.visible = false;
+        
+        Cursor.lockState = CursorLockMode.Confined;
+
         InitializeServices();
     }
 

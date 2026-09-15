@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;  
 
 public class PlayerInputService : IShipInputService, IFleetInputService, IWeaponsInputService
 {
@@ -12,6 +13,9 @@ public class PlayerInputService : IShipInputService, IFleetInputService, IWeapon
 
     private PlayerInputActions _inputActions;
     private float _steeringValue;
+
+    private bool _isFreeLookActive;
+    public bool IsFreeLookActive => _isFreeLookActive;
 
     public PlayerInputService()
     {
@@ -28,9 +32,21 @@ public class PlayerInputService : IShipInputService, IFleetInputService, IWeapon
         _inputActions.ShipControl.PreviousUnit.performed += ctx => OnPreviousUnit?.Invoke();
 
         _inputActions.ShipControl.Fire.performed += ctx => OnFireRequested?.Invoke();
+
+        _inputActions.ShipControl.FreeLook.performed += ctx => _isFreeLookActive = !_isFreeLookActive;
     }
 
     public float GetSteering() => _steeringValue;
+
+    public Vector2 GetPointerPosition()
+    {
+        if (Mouse.current != null)
+        {
+            return Mouse.current.position.ReadValue();
+        }
+
+        return new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+    }
 
     public void Disable()
     {

@@ -77,14 +77,21 @@ namespace Gameplay.Weapons
 
         private void Update()
         {
-            if (_fireControlSystem == null || _mainCamera == null) return;
+            if (_fireControlSystem == null || _mainCamera == null || _weaponsInput == null) return;
 
-            AimAtCrosshair();
+            if (!_weaponsInput.IsFreeLookActive)
+            {
+                AimAtCrosshair();
+            }
         }
 
         private void AimAtCrosshair()
         {
-            Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            if (_weaponsInput == null) return;
+
+            Vector2 screenAimPoint = _weaponsInput.GetPointerPosition();
+
+            Ray ray = _mainCamera.ScreenPointToRay(screenAimPoint);
 
             Vector3 targetPoint = Vector3.zero;
             bool targetFound = false;
@@ -94,6 +101,7 @@ namespace Gameplay.Weapons
                 targetPoint = hit.point;
                 targetFound = true;
             }
+
             else if (_waterPlane.Raycast(ray, out float distanceToWater))
             {
                 targetPoint = ray.GetPoint(distanceToWater);
