@@ -19,7 +19,6 @@ public class UnitBrain : MonoBehaviour
         }
     }
 
-
     public void Possess(IShipInputService newInputProvider)
     {
         if (_currentInput != null)

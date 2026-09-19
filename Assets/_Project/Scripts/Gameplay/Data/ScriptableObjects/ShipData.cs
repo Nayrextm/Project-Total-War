@@ -64,7 +64,16 @@ namespace Gameplay.Data
         [Tooltip("Час перезарядки в секундах")]
         public float ReloadTime;
 
-        [Tooltip("Максимальна дальність стрільби (метри)")]
+        [Tooltip("Максимальна дальність стрільби (метри). Тепер це скоріше ліміт для систем захоплення.")]
         public float MaxRange;
+
+        [Tooltip("Початкова швидкість снаряда (м/с). Наприклад, для крейсера Takao (203 мм) це близько 840 м/с.")]
+        public float MuzzleVelocity;
+
+        [Tooltip("Дані снаряда (калібр, маса, префаб візуалу)")]
+        public ProjectileData AmmoData;
+
+        [Tooltip("Затримка між пострілами стволів у режимі Burst (секунди)")]
+        public float BurstDelay;
     }
 }

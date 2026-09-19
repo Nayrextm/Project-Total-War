@@ -1,5 +1,6 @@
 using UnityEngine;
 using Gameplay.Data;
+using System;
 
 namespace Gameplay.Weapons
 {
@@ -10,6 +11,9 @@ namespace Gameplay.Weapons
         [SerializeField] private TurretController[] _turrets;
 
         private Vector3 _currentTargetPoint;
+
+        // Подія для UI або Аудіо менеджера (віддача, звук залпу)
+        public event Action OnSalvoFired;
 
         public void Initialize(ShipData shipData)
         {
@@ -54,7 +58,7 @@ namespace Gameplay.Weapons
 
             if (firedAtLeastOne)
             {
-                // OnSalvoFired?.Invoke();
+                OnSalvoFired?.Invoke();
             }
         }
     }

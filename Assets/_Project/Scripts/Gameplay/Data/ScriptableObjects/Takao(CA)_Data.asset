@@ -25,3 +25,6 @@ MonoBehaviour:
     ElevationTurnRate: 30
     ReloadTime: 3
     MaxRange: 9
+    MuzzleVelocity: 840
+    AmmoData: {fileID: 11400000, guid: 9483b11b9eb4e2843b32331590531ffb, type: 2}
+    BurstDelay: 0.3
