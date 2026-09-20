@@ -3,7 +3,7 @@ using UnityEngine;
 public class VisualBuoyancy : MonoBehaviour
 {
     [Header("Ship Dimensions")]
-    [Tooltip("Відстань від центру до носа/корми для розрахунку кута нахилу")]
+    [Tooltip("Distance from center to bow/stern for calculating roll angle")]
     [SerializeField] private float _shipLength = 10f;
 
     [Header("Wave Mathematics")]

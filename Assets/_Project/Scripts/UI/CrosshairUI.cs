@@ -7,7 +7,7 @@ namespace UI
     {
         [SerializeField] private RectTransform _crosshairRect;
 
-        [Tooltip("Ўвидк≥сть зникненн€/по€ви приц≥лу")]
+        [Tooltip("Aiming reticle(crosshair) fade-in/fade-out speed")]
         [SerializeField] private float _fadeSpeed = 10f;
 
         private CanvasGroup _canvasGroup;

@@ -49,7 +49,6 @@ public class UITelegraph : MonoBehaviour
     {
         if (_activeShip != null)
         {
-            // Змінили назву методу для відписки
             _activeShip.OnGearChanged -= AnimateTelegraphHandle; 
         }
 
@@ -57,10 +56,8 @@ public class UITelegraph : MonoBehaviour
 
         if (_activeShip != null)
         {
-            // Підписуємося на анімацію при звичайній грі
             _activeShip.OnGearChanged += AnimateTelegraphHandle; 
             
-            // Викликаємо МИТТЄВИЙ стрибок для нового корабля
             SnapTelegraphHandle(_activeShip.CurrentGear); 
             
             _lastDisplayedKnots = -1f; 

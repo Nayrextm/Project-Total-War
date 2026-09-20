@@ -6,10 +6,10 @@ namespace Gameplay.Weapons
     public class PlayerArtilleryInput : MonoBehaviour
     {
         [Header("Targeting")]
-        [Tooltip("Система керування вогнем корабля, яким зараз керує гравець")]
+        [Tooltip("The fire control system of the ship currently controlled by the player.")]
         [SerializeField] private FireControlSystem _fireControlSystem;
 
-        [Tooltip("Шари, в які можуть влучати наші промені прицілювання")]
+        [Tooltip("Layers that targeting beams can hit")]
         [SerializeField] private LayerMask _targetLayerMask = ~0;
 
         private Camera _mainCamera;
@@ -63,7 +63,7 @@ namespace Gameplay.Weapons
             }
             else
             {
-                PossessShip(null); // Відключаємо стрільбу, якщо на юніті немає зброї
+                PossessShip(null);
             }
         }
 

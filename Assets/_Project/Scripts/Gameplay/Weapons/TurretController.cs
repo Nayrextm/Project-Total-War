@@ -17,9 +17,9 @@ namespace Gameplay.Weapons
 
         public enum FiringMode
         {
-            Salvo,      // Залп: усі стволи одночасно
-            Sequential, // По черзі: один ствол за клік (ППО)
-            Burst       // Каскад: ствол -> пауза -> ствол -> перезарядка
+            Salvo,      // Salvo: all barrels simultaneously
+            Sequential, // One by one: one barrel per click (air defense)
+            Burst       // Cascade: barrel -> pause -> barrel -> reload
         }
 
         [Header("Fire Points & Mode")]
@@ -27,7 +27,6 @@ namespace Gameplay.Weapons
         [SerializeField] private Transform[] _firePoints;
         private int _currentBarrelIndex = 0;
 
-        // Burst State
         private bool _isBursting = false;
         private int _burstShotsFired = 0;
         private float _burstTimer = 0f;

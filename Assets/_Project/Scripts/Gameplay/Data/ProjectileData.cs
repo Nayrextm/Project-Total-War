@@ -4,8 +4,8 @@ namespace Gameplay.Data
 {
     public enum AmmunitionType
     {
-        ArmorPiercing,  // Бронебійний (AP)
-        HighExplosive   // Фугасний (HE)
+        ArmorPiercing,  // (AP)
+        HighExplosive   // (HE)
     }
 
     [CreateAssetMenu(fileName = "NewProjectileData", menuName = "Naval/Projectile Data")]
@@ -16,16 +16,16 @@ namespace Gameplay.Data
         public AmmunitionType Type;
 
         [Header("Visuals")]
-        public GameObject VisualPrefab; // Якщо захочеш різні модельки для різних калібрів
+        public GameObject VisualPrefab;
 
         [Header("Physics & Damage")]
-        [Tooltip("Маса в кілограмах")]
+        [Tooltip("Mass in kilograms")]
         public float Mass = 125f;
 
-        [Tooltip("Калібр у міліметрах")]
+        [Tooltip("Caliber in millimeters")]
         public float Caliber = 203f;
 
-        [Tooltip("Максимальна шкода при пробитті цитаделі")]
+        [Tooltip("Maximum damage from a citadel hit")]
         public float MaxDamage = 4500f;
     }
 }

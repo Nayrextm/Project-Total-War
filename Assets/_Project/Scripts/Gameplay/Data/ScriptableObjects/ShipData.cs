@@ -3,7 +3,6 @@ using System;
 
 namespace Gameplay.Data
 {
-
     [CreateAssetMenu(fileName = "NewShipData", menuName = "Naval/Ship Data")]
     public class ShipData : ScriptableObject
     {
@@ -37,7 +36,7 @@ namespace Gameplay.Data
         [SerializeField] private int _maxAircraftCapacity;
 
         [Header("Artillery Settings")]
-        [Tooltip("Характеристики башт головного калібру.")]
+        [Tooltip("Characteristics and stats for the main battery turrets.")]
         [SerializeField] private ArtillerySettings _mainBattery;
 
         public string ShipName => _shipName;
@@ -55,25 +54,25 @@ namespace Gameplay.Data
     [Serializable]
     public struct ArtillerySettings
     {
-        [Tooltip("Швидкість повороту башти по горизонталі (градуси/сек)")]
+        [Tooltip("Horizontal turret traverse speed (degrees per second).")]
         public float AzimuthTurnRate;
 
-        [Tooltip("Швидкість підняття стволів по вертикалі (градуси/сек)")]
+        [Tooltip("Vertical barrel elevation speed (degrees per second).")]
         public float ElevationTurnRate;
 
-        [Tooltip("Час перезарядки в секундах")]
+        [Tooltip("Time required to reload the turret (in seconds).")]
         public float ReloadTime;
 
-        [Tooltip("Максимальна дальність стрільби (метри). Тепер це скоріше ліміт для систем захоплення.")]
+        [Tooltip("Maximum firing range in meters. Acts as a limit for targeting systems.")]
         public float MaxRange;
 
-        [Tooltip("Початкова швидкість снаряда (м/с). Наприклад, для крейсера Takao (203 мм) це близько 840 м/с.")]
+        [Tooltip("Muzzle velocity in m/s. E.g., for Takao cruiser (203mm) this is around 840 m/s.")]
         public float MuzzleVelocity;
 
-        [Tooltip("Дані снаряда (калібр, маса, префаб візуалу)")]
+        [Tooltip("Reference to the projectile data (caliber, mass, visual prefab).")]
         public ProjectileData AmmoData;
 
-        [Tooltip("Затримка між пострілами стволів у режимі Burst (секунди)")]
+        [Tooltip("Delay between barrel shots in Burst mode (in seconds).")]
         public float BurstDelay;
     }
 }
